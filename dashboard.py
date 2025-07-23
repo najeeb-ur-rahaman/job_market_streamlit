@@ -2,12 +2,13 @@ import os
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from dotenv import load_dotenv
-from utils import get_engine
+from sqlalchemy import create_engine
 
-load_dotenv()
+# Get DB connection from Streamlit secrets
+db_url = st.secrets["DB_URL"]
+
 # Load data
-engine = get_engine()
+engine = create_engine(db_url)
 
 df = pd.read_sql("SELECT * FROM dev.jobs", engine)
 
